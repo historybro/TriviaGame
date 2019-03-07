@@ -1,0 +1,32 @@
+body {
+    background-image: url(../images/bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow-x:hidden;
+}
+
+#pic {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 400px;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+#head {
+    color: white;
+    font-family: "Roboto Mono", monospace;
+}
+
+.form-check{
+    text-align: left;
+    margin-left: 25%
+}
+/* font-family: 'Roboto Mono', monospace;
+font-family: 'Audiowide', cursive;
+font-family: 'Press Start 2P', cursive; */
+

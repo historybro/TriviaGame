@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trivia Game</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link href="https://fonts.googleapis.com/css?family=Audiowide|Press+Start+2P|Roboto+Mono" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <div class="containter">
+
+        <div class="row">
+            <div class="col-md-9 centered col-centered">
+                <h2 class="text-center" id="head">Aqua Teen Hunger Force Colon Online Quiz For Class</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 centered col-centered">
+                <img alt="Question Photo" src="" id="pic" />
+            </div>
+        </div>
+
+        <div class="row" id="welcome">
+            <div class="col-md-6 centered col-centered">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h4>Welcome to the Quiz!</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Quiz Rules.</h5>
+                        <p class="card-text">You will have <span id="timeAllowed"></span> seconds to complete each
+                            answer.
+                            <br>If time runs out you will be moved onto the next question.
+                            <br>Your final score will be displayed at the end.
+                        </p>
+                        <div class="btn btn-primary" id="beginbtn">Begin</div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <h6>Time Left: Will be displayed here</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="quiz">
+            <div class="col-md-6 centered col-centered">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h5>Question # <span id="questionNumb"></span></h5>
+                    </div>
+                    <div class="card-body">
+                        <!--<h5 class="card-title">Special title treatment</h5>-->
+                        <p class="card-text" id="question">This is where the Question will go.</p>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" value="a"
+                                checked>
+                            <label class="form-check-label" for="exampleRadios1" id="answerA">
+                                Answer A
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" value="b">
+                            <label class="form-check-label" for="exampleRadios2" id="answerB">
+                                Answer B
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" value="c">
+                            <label class="form-check-label" for="exampleRadios3" id="answerC">
+                                Answer C
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" value="d">
+                            <label class="form-check-label" for="exampleRadios3" id="answerD">
+                                Answer D
+                            </label>
+                        </div>
+
+                        <div class="btn btn-primary" id="submitbtn">Submit</div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <h6>Time Left: <span id="timeLeft">s</span></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="row" id="answered">
+                <div class="col-md-6 centered col-centered">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <h4>You answered</h4>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Quiz Results.</h5>
+                            <p class="card-text">You answered <span id="playerAnswer"></span>.
+                                <br>The Correct Answer Was:
+                                <br><span id="rightAnswer"></span>
+                                <br>You got it <span id="correct"></span>!
+                            </p>
+                            <div class="btn btn-primary" id="continuebtn">Continue</div>
+                        </div>
+                        <div class="card-footer text-muted">
+                            <h6>Time Left: <span id="timeLeft"></span></h6>
+                        </div>
+                    </div>
+                </div>
+        </div> -->
+
+        <div class="row" id="thanks">
+            <div class="col-md-6 centered col-centered">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <h4>Thanks for playing!</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Quiz Results.</h5>
+                        <p class="card-text">You answered <span id="qright"></span> questions correctly.
+                            <br>You answered <span id="qwrong"></span> questions incorrectly.
+                            <br>Time ran out <span id="runOut"></span> times!
+                            <br>Final grade: <span id="grade"></span>
+                            <br>You did <span id="lastWord"></span>
+                        </p>
+                        <div class="btn btn-primary" id="resetbtn">Reset</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
+</body>
+
+</html>
