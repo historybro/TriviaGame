@@ -2,11 +2,13 @@ var timeoutAnswer = 0;
 var qright = 0;
 var qwrong = 0;
 var questionTime = 30;
+var answerTime = 10;
 var questionNumber = 0;
+var timeleft = answerTime;
 var intervalId;
 var timeAllowed = questionTime;
-var images = ["assets/images/pic1.jpg","assets/images/carl.jpg", "assets/images/meatwad.png", "assets/images/frylock.png", "assets/images/Master_Shake.png", "assets/images/logo.png"]
-var grades = ["F","D","C","B","A"]
+var images = ["assets/images/pic1.jpg", "assets/images/carl.png", "assets/images/meatwad.png", "assets/images/frylock.png", "assets/images/Master_Shake.png", "assets/images/logo.png"]
+var grades = ["F", "D", "C", "B", "A"]
 var lastWord = ["really bad...", "bad...", "alright.", "good.", "great!"]
 var questions = [
     {
@@ -18,7 +20,7 @@ var questions = [
             d: "Smith"
         },
         correctChoice: "c",
-        pic: "assets/images/carl.jpg"
+        pic: "assets/images/carl.png"
     },
     {
         question: "What shapes can Meatwad form?",
@@ -73,7 +75,14 @@ function startQuiz() {
 
 function startClock() {
     timeAllowed = questionTime;
+    $("#timeLeft").text(timeAllowed + "s");
     intervalId = setInterval(count, 1000);
+}
+
+function resultsClock() {
+    timeleft = answerTime;
+    $("#timenextQ").text(timeleft + "s until next question.");
+    intervalId = setInterval(answertime, 1000);
 }
 
 
@@ -81,23 +90,43 @@ function stopClock() {
     clearInterval(intervalId);
 }
 
-function count() {    
+function count() {
     timeAllowed--;
     $("#timeLeft").text(timeAllowed + "s");
-    if(timeAllowed === 0) {
+    if (timeAllowed === 0) {
         stopClock();
         timeoutAnswer++;
-        qwrong++;        
+        qwrong++;
+        answerPage();
+    }
+}
+
+function answertime() {
+    timeleft--;
+    $("#timenextQ").text(timeleft + "s until next question.");
+    if (timeleft === 0) {
+        stopClock();
         nextQuestion();
     }
+}
+
+function answerPage() {    
+    stopClock();
+    checkAnswer();
+    resultsClock();
+    $("#quiz").hide();
+    $("#answered").show();  
 
 }
 
 function nextQuestion() {
+    $("#answered").hide();
+    $("#quiz").show();
     stopClock();
     startClock();
     questionNumber++;
-    $("#questionNumb").text(questionNumber+1);    
+    $("#pic").attr("src", images[questionNumber + 1]);
+    $("#questionNumb").text(questionNumber + 1);
     if (questionNumber < questions.length) {
         pushQ();
     } else {
@@ -110,7 +139,6 @@ function nextQuestion() {
 
 function pushQ() {
     $("#question").html(questions[questionNumber].question);
-    console.log(questions[questionNumber].question);
     $("#answerA").html(questions[questionNumber].choices.a);
     $("#answerB").html(questions[questionNumber].choices.b);
     $("#answerC").html(questions[questionNumber].choices.c);
@@ -122,13 +150,14 @@ function resetAll() {
     $("#timeAllowed").html(questionTime);
     $("#welcome").show();
     $("#quiz").hide();
-    //$("answered").hide();
+    $("#answered").hide();
     $("#thanks").hide();
     timeoutAnswer = 0;
     qright = 0;
     qwrong = 0;
     timeAllowed = questionTime;
     questionNumber = 0;
+    timeleft = answerTime;
     timeout = false;
     answerchoice = [];
     pushQ();
@@ -138,10 +167,14 @@ function resetAll() {
 function checkAnswer() {
     var correctAnswer = questions[questionNumber].correctChoice;
     var answerChoice = $("input[name='exampleRadios']:checked").val();
+    $("#playerAnswer").html(answerChoice);
+    $("#rightAnswer").html(correctAnswer);
     if (correctAnswer === answerChoice) {
         qright++;
+        $("#correct").text("right!");
     } else {
         qwrong++;
+        $("#correct").text("wrong!");
     }
 }
 
@@ -160,31 +193,24 @@ $("#beginbtn").click(function () {
     $("#quiz").show();
     console.log("Clicked Begin");
     startClock();
-    $("#questionNumb").text(questionNumber+1);
+    $("#questionNumb").text(questionNumber + 1);
     $("#pic").attr("src", images[questionNumber + 1]);
 });
 
 $("#submitbtn").click(function () {
     stopClock();
-    checkAnswer();
-    nextQuestion();
-    $("#pic").attr("src", images[questionNumber + 1]);
+    answerPage();
+});
 
-    console.log("Clicked Submit");
-    console.log("Question Number:" + questionNumber);
-    console.log(questions);
+$("#nextQbtn").click(function () {
+    nextQuestion();
 });
 
 $("#resetbtn").click(function () {
     resetAll();
-    console.log("Clicked Reset");
-    console.log("Question Number:" + questionNumber);
-    console.log(questions);
 });
 
 
 $(document).ready(function () {
-    console.log("ready!");
-    console.log("Question Number:" + questionNumber);
     resetAll();
 });
